@@ -14,6 +14,5 @@ async def handler(event):
                 print(str(user.id)+' ==> IS ADMIN')
             else:
                 print(str(user.id)+' ==> KICK')
-                msg = await client.kick_participant(event.peer_id.channel_id, user.id)
-                await msg.delete()
+                await client.kick_participant(event.peer_id.channel_id, user.id)
 client.run_until_disconnected()
