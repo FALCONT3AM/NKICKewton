@@ -17,4 +17,4 @@ async def handler(event):
                     print(str(user.id)+' ==> KICK')
                     msg = await client.kick_participant(event.peer_id.channel_id, user.id)
                     await msg.delete()
-client.run_until_disconnecte()
+client.run_until_disconnected()
