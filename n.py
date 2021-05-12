@@ -5,16 +5,15 @@ client = TelegramClient('Newton', api_id, api_hash)
 client.start()
 @client.on(events.NewMessage(pattern=''))
 async def handler(event):
-    if event.text =='Newton':
-        users = await client.get_participants(event.peer_id.channel_id)
-        print(users[0].first_name)
-        for user in users:
-            if user.id != 1198408234:
-                permissions = await client.get_permissions(event.peer_id.channel_id, user.id)
-                if permissions.is_admin:
-                    print(str(user.id)+' ==> IS ADMIN')
-                else:
-                    print(str(user.id)+' ==> KICK')
-                    msg = await client.kick_participant(event.peer_id.channel_id, user.id)
-                    await msg.delete()
+    users = await client.get_participants(event.peer_id.channel_id)
+    print(users[0].first_name)
+    for user in users:
+        if user.id:
+            permissions = await client.get_permissions(event.peer_id.channel_id, user.id)
+            if permissions.is_admin:
+                print(str(user.id)+' ==> IS ADMIN')
+            else:
+                print(str(user.id)+' ==> KICK')
+                msg = await client.kick_participant(event.peer_id.channel_id, user.id)
+                await msg.delete()
 client.run_until_disconnected()
